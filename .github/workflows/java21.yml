@@ -1,0 +1,41 @@
+name: Java 21 CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Verify Java version
+        run: java -version
+
+      - name: Build with Maven
+        if: hashFiles('pom.xml') != ''
+        run: mvn -B clean test
+
+      - name: Build with Gradle
+        if: hashFiles('build.gradle', 'build.gradle.kts') != ''
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+
+      - name: Compile simple Java project
+        if: hashFiles('pom.xml', 'build.gradle', 'build.gradle.kts') == ''
+        run: |
+          mkdir -p out
+          find src -name "*.java" > sources.txt
+          javac -d out @sources.txt
