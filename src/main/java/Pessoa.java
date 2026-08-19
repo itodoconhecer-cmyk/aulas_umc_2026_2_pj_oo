@@ -5,7 +5,7 @@ public class Pessoa {
     public String tipoSanguineo;
 
     public void exibirNome() {
-        System.out.println(nome, "ola Mundo!");
+        System.out.println(nome + " ola Mundo!");
     }
 
 }
