@@ -6,6 +6,12 @@ public class Pessoa {
     public int idade;
     public String tipoSanguineo;
 
+    public Pessoa(String nome, int idade, String tipoSanguineo) {
+        this.nome = nome;
+        this.idade = idade;
+        this.tipoSanguineo = tipoSanguineo;
+    }
+
     public void exibirNome() {
         System.out.println(nome + " ola Mundo!");
     }
