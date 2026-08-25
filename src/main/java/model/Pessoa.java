@@ -1,24 +1,8 @@
-package model;
-
 public class Pessoa {
 
     public String nome;
     public int idade;
     public String tipoSanguineo;
-
-    public Pessoa(String nome, int idade, String tipoSanguineo) {
-        this.nome = nome;
-        this.idade = idade;
-        this.tipoSanguineo = tipoSanguineo;
-    }
-
-    public Pessoa(String nome, int idade) {
-        this.nome = nome;
-        this.idade = idade;
-    }
-
-    public Pessoa() {
-    }
 
     public void exibirNome() {
         System.out.println(nome + " ola Mundo!");
