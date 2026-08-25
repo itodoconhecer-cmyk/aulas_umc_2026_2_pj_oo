@@ -8,4 +8,12 @@ public class Pessoa {
         System.out.println(nome + " ola Mundo!");
     }
 
+    public void exibirIdade() {
+        System.out.println("Idade: " + idade);
+    }
+
+    public void exibirTipoSanguineo() {
+        System.out.println("Tipo Sanguineo: " + tipoSanguineo);
+    }
+
 }
