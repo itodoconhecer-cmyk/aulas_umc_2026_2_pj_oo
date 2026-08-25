@@ -2,12 +2,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Pessoa pessoa = new Pessoa();
-
-        pessoa.nome = "João";
-        pessoa.idade = 20;
-        pessoa.tipoSanguineo = "O+";
+        Pessoa pessoa = new Pessoa("João", 20, "O+");
 
         pessoa.exibirNome();
+        pessoa.exibirIdade();
+        pessoa.exibirTipoSanguineo();
     }
 }
