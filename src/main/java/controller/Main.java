@@ -5,19 +5,10 @@ import model.Pessoa;
 public class Main {
 
     public static void main(String[] args) {
+        Pessoa pessoa = new Pessoa("João", 20, "O+");
 
-        Pessoa pessoa = new Pessoa();
-
-        pessoa.nome = "João";
-        pessoa.tipoSanguineo = "AB-";
+        pessoa.exibirNome();
+        pessoa.exibirIdade();
         pessoa.exibirTipoSanguineo();
-
-        Pessoa pessoa2 = new Pessoa("Pedro", 20);
-
-        pessoa2.exibirNome();
-        pessoa2.exibirIdade();
-
-
-
     }
 }
