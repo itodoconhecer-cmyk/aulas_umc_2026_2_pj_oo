@@ -14,7 +14,6 @@ public class Pessoa {
         if (endereco == null) {
             throw new IllegalArgumentException("Pessoa deve possuir pelo menos um endereco.");
         }
-
         this.nome = nome;
         this.idade = idade;
         this.tipoSanguineo = tipoSanguineo;
@@ -29,12 +28,6 @@ public class Pessoa {
         enderecos.add(endereco);
     }
 
-    public void exibirEnderecos() {
-        for (Endereco endereco : enderecos) {
-            endereco.exibir();
-        }
-    }
-
     public void exibirNome() {
         System.out.println(nome + " ola Mundo!");
     }
@@ -45,6 +38,12 @@ public class Pessoa {
 
     public void exibirTipoSanguineo() {
         System.out.println("Tipo Sanguineo: " + tipoSanguineo);
+    }
+
+    public void exibirEnderecos() {
+        for (Endereco endereco : enderecos) {
+            endereco.exibir();
+        }
     }
 
     public void fazerAniversario() {
