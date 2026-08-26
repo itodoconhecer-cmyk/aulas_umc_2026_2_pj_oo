@@ -1,20 +1,38 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pessoa {
 
     public String nome;
     public int idade;
     public String tipoSanguineo;
-    public Endereco endereco;
+    private final List<Endereco> enderecos;
 
-    public Pessoa(String nome, int idade, String tipoSanguineo) {
+    public Pessoa(String nome, int idade, String tipoSanguineo, Endereco endereco) {
+        if (endereco == null) {
+            throw new IllegalArgumentException("Pessoa deve possuir pelo menos um endereco.");
+        }
+
         this.nome = nome;
         this.idade = idade;
         this.tipoSanguineo = tipoSanguineo;
+        this.enderecos = new ArrayList<>();
+        this.enderecos.add(endereco);
     }
 
-    public Pessoa(Endereco  endereco) {
-        this.endereco = endereco;
+    public void adicionarEndereco(Endereco endereco) {
+        if (endereco == null) {
+            throw new IllegalArgumentException("Endereco nao pode ser nulo.");
+        }
+        enderecos.add(endereco);
+    }
+
+    public void exibirEnderecos() {
+        for (Endereco endereco : enderecos) {
+            endereco.exibir();
+        }
     }
 
     public void exibirNome() {
@@ -32,6 +50,4 @@ public class Pessoa {
     public void fazerAniversario() {
         idade++;
     }
-
-
 }
