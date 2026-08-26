@@ -5,8 +5,14 @@ public class Endereco {
     private String numero;
     private String cidade;
 
-    //getter and setter
+    public Endereco(String rua, String numero, String cidade) {
+        this.rua = rua;
+        this.numero = numero;
+        this.cidade = cidade;
+    }
 
+    public Endereco() {
+    }
 
     public String getRua() {
         return rua;
@@ -32,18 +38,7 @@ public class Endereco {
         this.cidade = cidade;
     }
 
-    public Endereco(String rua, String numero, String cidade) {
-        this.rua = rua;
-        this.numero = numero;
-        this.cidade = cidade;
-    }
-
-    public Endereco() {
-
-    }
-
     public void exibir() {
-        System.out.println(rua + ", " +  numero + " - " + cidade);
+        System.out.println(rua + ", " + numero + " - " + cidade);
     }
 }
-
