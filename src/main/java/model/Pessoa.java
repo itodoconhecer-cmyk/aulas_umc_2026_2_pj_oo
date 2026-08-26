@@ -5,11 +5,16 @@ public class Pessoa {
     public String nome;
     public int idade;
     public String tipoSanguineo;
+    public Endereco endereco;
 
     public Pessoa(String nome, int idade, String tipoSanguineo) {
         this.nome = nome;
         this.idade = idade;
         this.tipoSanguineo = tipoSanguineo;
+    }
+
+    public Pessoa(Endereco  endereco) {
+        this.endereco = endereco;
     }
 
     public void exibirNome() {
@@ -23,5 +28,10 @@ public class Pessoa {
     public void exibirTipoSanguineo() {
         System.out.println("Tipo Sanguineo: " + tipoSanguineo);
     }
+
+    public void fazerAniversario() {
+        idade++;
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import model.Endereco;
 import model.Pessoa;
 
 public class Main {
@@ -10,5 +11,16 @@ public class Main {
         pessoa.exibirNome();
         pessoa.exibirIdade();
         pessoa.exibirTipoSanguineo();
+
+        pessoa.fazerAniversario();
+        pessoa.exibirIdade();
+
+        Endereco endereco = new Endereco();
+        endereco.setCidade("Rio Branco");
+        endereco.setNumero("12345");
+        endereco.setRua("Rua Anjos");
+
+        endereco.exibir();
+
     }
 }
