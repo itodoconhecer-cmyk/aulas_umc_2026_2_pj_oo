@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Pessoa {
 
-    public String nome;
+    public NomePessoa nome;
     public int idade;
     public String tipoSanguineo;
     private final List<Endereco> enderecos;
@@ -14,7 +14,7 @@ public class Pessoa {
         if (endereco == null) {
             throw new IllegalArgumentException("Pessoa deve possuir pelo menos um endereco.");
         }
-        this.nome = nome;
+        this.nome = new NomePessoa(nome);
         this.idade = idade;
         this.tipoSanguineo = tipoSanguineo;
         this.enderecos = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Pessoa {
     }
 
     public void exibirNome() {
-        System.out.println(nome + " ola Mundo!");
+        System.out.println(nome.getNome() + " ola Mundo!");
     }
 
     public void exibirIdade() {
