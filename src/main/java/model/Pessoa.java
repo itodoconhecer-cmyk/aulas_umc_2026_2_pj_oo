@@ -1,24 +1,30 @@
 package model;
 
+import model.valueObjects.IdadePessoa;
+import model.valueObjects.NomePessoa;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pessoa {
 
     public NomePessoa nome;
-    public int idade;
+    public IdadePessoa idade;
     public String tipoSanguineo;
     private final List<Endereco> enderecos;
+    private final List<Documento> documentos;
 
-    public Pessoa(String nome, int idade, String tipoSanguineo, Endereco endereco) {
+    public Pessoa(String nome, int idade, String tipoSanguineo, Endereco endereco, Documento documento) {
         if (endereco == null) {
             throw new IllegalArgumentException("Pessoa deve possuir pelo menos um endereco.");
         }
         this.nome = new NomePessoa(nome);
-        this.idade = idade;
+        this.idade = new  IdadePessoa(idade);
         this.tipoSanguineo = tipoSanguineo;
         this.enderecos = new ArrayList<>();
         this.enderecos.add(endereco);
+        this.documentos = new ArrayList<>();
+        this.documentos.add(documento);
     }
 
     public void adicionarEndereco(Endereco endereco) {
@@ -28,8 +34,16 @@ public class Pessoa {
         enderecos.add(endereco);
     }
 
+    public void adicionarDocumento(Documento documento) {
+        if (documento == null) {
+            throw new IllegalArgumentException("Documento nao pode ser nulo.");
+        }
+        documentos.add(documento);
+    }
+
+
     public void exibirNome() {
-        System.out.println(nome.getNome() + " ola Mundo!");
+        System.out.println(nome.getValor() + " ola Mundo!");
     }
 
     public void exibirIdade() {
@@ -45,8 +59,13 @@ public class Pessoa {
             endereco.exibir();
         }
     }
+    public void exibirDocumentos() {
+        for (Documento documento : documentos) {
+            documento.exibir();
+        }
+    }
 
     public void fazerAniversario() {
-        idade++;
+        this.idade.setValor(this.idade.getValor() + 1);
     }
 }

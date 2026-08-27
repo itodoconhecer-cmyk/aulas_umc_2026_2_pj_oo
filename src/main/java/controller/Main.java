@@ -1,7 +1,11 @@
 package controller;
 
+import model.Documento;
 import model.Endereco;
 import model.Pessoa;
+import model.valueObjects.DemaisDados;
+import model.valueObjects.Tipo;
+import model.valueObjects.ValorDoc;
 
 public class Main {
 
@@ -9,7 +13,9 @@ public class Main {
         Endereco endereco1 = new Endereco("Rua Anjos", "12345", "Rio Branco");
         Endereco endereco2 = new Endereco("Rua das Flores", "456", "Sao Paulo");
 
-        Pessoa pessoa = new Pessoa("João", 20, "O+", endereco1);
+        Documento documento1 = new Documento(new Tipo("RG"),new ValorDoc("23423423"),new DemaisDados("."));
+
+        Pessoa pessoa = new Pessoa("João", 20, "O+", endereco1, documento1);
         pessoa.adicionarEndereco(endereco2);
 
         pessoa.exibirNome();

@@ -1,4 +1,4 @@
-package model;
+package model.valueObjects;
 
 public class NomePessoa {
 
@@ -14,10 +14,6 @@ public class NomePessoa {
     }
 
     public String getValor() {
-        return valor;
-    }
-
-    public String getNome() {
         return valor;
     }
 }
