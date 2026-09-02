@@ -1,5 +1,6 @@
 package model;
 
+import model.valueObjects.Email;
 import model.valueObjects.IdadePessoa;
 import model.valueObjects.NomePessoa;
 
@@ -10,6 +11,7 @@ public class Pessoa {
 
     public NomePessoa nome;
     public IdadePessoa idade;
+    public Email email;
     public String tipoSanguineo;
     private final List<Endereco> enderecos;
     private final List<Documento> documentos;

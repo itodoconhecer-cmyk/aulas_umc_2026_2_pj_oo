@@ -1,5 +1,7 @@
 package controller;
 
+import DTO.CadastroPessoaRequest;
+import mapper.PessoaRequestMapper;
 import model.Documento;
 import model.Endereco;
 import model.Pessoa;
@@ -25,5 +27,12 @@ public class Main {
 
         pessoa.fazerAniversario();
         pessoa.exibirIdade();
+
+
+        CadastroPessoaRequest request = new CadastroPessoaRequest();
+        request.setNome("Maria");
+        request.setEmail("maria@email.com");
+
+        CadastrarPessoaCommand command = new PessoaRequestMapper().toCommand(request);
     }
 }
