@@ -16,6 +16,7 @@ public class Pessoa {
     private final List<Endereco> enderecos;
     private final List<Documento> documentos;
 
+
     public Pessoa(String nome, int idade, String tipoSanguineo, Endereco endereco, Documento documento) {
         if (endereco == null) {
             throw new IllegalArgumentException("Pessoa deve possuir pelo menos um endereco.");
@@ -27,6 +28,13 @@ public class Pessoa {
         this.enderecos.add(endereco);
         this.documentos = new ArrayList<>();
         this.documentos.add(documento);
+    }
+
+    public Pessoa (NomePessoa nome,Email email) {
+        this.nome = nome;
+        this.email = email;
+        this.enderecos = new ArrayList<>();
+        this.documentos = new ArrayList<>();
     }
 
     public void adicionarEndereco(Endereco endereco) {
