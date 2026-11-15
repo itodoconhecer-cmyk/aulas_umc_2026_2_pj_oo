@@ -1,0 +1,60 @@
+name: Transcrever narracao e gerar legendas
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/transcrever-narracao.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  transcrever:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      ARTIFACT_ID: "14172403197"
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar transcritor
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "faster-whisper>=1.1,<2"
+
+      - name: Recuperar narracao do Actions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          mkdir -p entrada
+          curl --fail --location --retry 3 --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}/zip" \
+            -o entrada/artifact.zip
+          unzip -o entrada/artifact.zip -d entrada
+          if [[ ! -s entrada/narracao.mp3 ]]; then
+            echo "::error::narracao.mp3 ausente. Verifique se o artefato expirou."
+            exit 1
+          fi
+
+      - name: Transcrever em portugues com timestamps
+        run: python scripts/transcrever_narracao.py
+
+      - name: Salvar transcricao e legendas
+        uses: actions/upload-artifact@v4
+        with:
+          name: transcricao-narracao-pt
+          path: transcricao/
+          retention-days: 7
+          if-no-files-found: error
