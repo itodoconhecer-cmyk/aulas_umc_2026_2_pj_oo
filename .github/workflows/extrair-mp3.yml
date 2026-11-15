@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p entrada audios
-          python -m gdown --id 1X9Dkbbm7hGJapl7u3uEw1yR6eL6wCFuG -O entrada/video.mp4
+          python -m gdown 1X9Dkbbm7hGJapl7u3uEw1yR6eL6wCFuG -O entrada/video.mp4
           test -s entrada/video.mp4
           ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 entrada/video.mp4
 
