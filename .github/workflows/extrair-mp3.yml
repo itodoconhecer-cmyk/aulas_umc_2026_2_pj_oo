@@ -11,12 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Instalar FFmpeg e yt-dlp
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar yt-dlp e conferir FFmpeg
+        shell: bash
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y ffmpeg
-          python3 -m pip install --user --upgrade yt-dlp
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          python -m pip install --upgrade pip yt-dlp
+          ffmpeg -version | head -n 1
+          yt-dlp --version
 
       - name: Baixar e converter audio para MP3
         shell: bash
@@ -24,6 +29,8 @@ jobs:
           mkdir -p audios
           yt-dlp \
             --no-playlist \
+            --retries 3 \
+            --fragment-retries 3 \
             --extract-audio \
             --audio-format mp3 \
             --audio-quality 192K \
