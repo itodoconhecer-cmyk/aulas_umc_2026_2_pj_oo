@@ -1,4 +1,4 @@
-name: Extrair audio MP3 do YouTube
+name: Extrair MP3 do video no Google Drive
 
 on:
   workflow_dispatch:
@@ -9,42 +9,37 @@ permissions:
 jobs:
   extrair-mp3:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - name: Preparar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Instalar FFmpeg e yt-dlp
-        shell: bash
+      - name: Instalar ferramentas
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg
-          python -m pip install --upgrade pip yt-dlp
-          command -v ffmpeg
+          python -m pip install --upgrade gdown
           ffmpeg -version | head -n 1
-          yt-dlp --version
 
-      - name: Baixar e converter audio para MP3
+      - name: Baixar video do Google Drive
         shell: bash
         run: |
-          mkdir -p audios
-          yt-dlp \
-            --no-playlist \
-            --retries 3 \
-            --fragment-retries 3 \
-            --extract-audio \
-            --audio-format mp3 \
-            --audio-quality 192K \
-            --output "audios/%(title).150B [%(id)s].%(ext)s" \
-            "https://youtu.be/gYNYZVCrwHo"
-          test -n "$(find audios -maxdepth 1 -type f -name '*.mp3' -print -quit)"
+          mkdir -p entrada audios
+          python -m gdown --id 1X9Dkbbm7hGJapl7u3uEw1yR6eL6wCFuG -O entrada/video.mp4
+          test -s entrada/video.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 entrada/video.mp4
 
-      - name: Disponibilizar MP3 para download
+      - name: Extrair MP3
+        run: |
+          ffmpeg -hide_banner -loglevel error -y -i entrada/video.mp4 -map 0:a:0 -vn -codec:a libmp3lame -b:a 192k audios/narracao.mp3
+          test -s audios/narracao.mp3
+
+      - name: Disponibilizar MP3
         uses: actions/upload-artifact@v4
         with:
-          name: audio-mp3-gYNYZVCrwHo
-          path: audios/*.mp3
+          name: narracao-mp3
+          path: audios/narracao.mp3
           if-no-files-found: error
           retention-days: 7
