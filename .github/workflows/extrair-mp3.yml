@@ -16,10 +16,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Instalar yt-dlp e conferir FFmpeg
+      - name: Instalar FFmpeg e yt-dlp
         shell: bash
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
           python -m pip install --upgrade pip yt-dlp
+          command -v ffmpeg
           ffmpeg -version | head -n 1
           yt-dlp --version
 
